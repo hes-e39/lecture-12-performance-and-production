@@ -1,14 +1,15 @@
 # Lecture 12: Performance and Production
 
 
-Introduction to React Testing and testing patterns.
+Run all of the examples with:
+```
+npm run dev
+```
 
-
-## Testing
-
-### Vitest
-
-`npm run test`
+Run benchmark tests with:
+```
+npm run bench
+```
 
 ## Dev Setup
 

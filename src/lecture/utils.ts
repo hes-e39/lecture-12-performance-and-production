@@ -4,8 +4,7 @@ export const fibonacci = (n: number): number => {
     return fibonacci(n - 1) + fibonacci(n - 2);
 };
 
-// return the nth fibonacci number (optimized)
-
+// eturn the nth fibonacci number (optimized)
 export const memoisedFibonacci = (n: number, cache: { [key: number]: number } = {}) => {
     if (cache[n]) return cache[n];
     if (n <= 1) return n;

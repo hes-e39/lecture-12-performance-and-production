@@ -5,7 +5,7 @@ describe('Fibinacci sequence', () => {
     bench(
         'slow',
         () => {
-            fibonacci(6);
+            fibonacci(12);
         },
         { time: 100 },
     );
@@ -13,7 +13,7 @@ describe('Fibinacci sequence', () => {
     bench(
         'fast',
         () => {
-            memoisedFibonacci(6);
+            memoisedFibonacci(12);
         },
         { time: 100 },
     );
