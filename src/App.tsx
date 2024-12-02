@@ -12,12 +12,12 @@ function App() {
                     </li>
                     <li className="hover:underline">
                         <Link to="/example2">
-                            Example 2 (<code>useMemo</code>)
+                            Example 2 (<code>memo</code>)
                         </Link>
                     </li>
                     <li className="hover:underline">
                         <Link to="/example3">
-                            Example 3 (<code>memo</code>)
+                            Example 3 (<code>useCallback</code>)
                         </Link>
                     </li>
                     <li className="hover:underline">
