@@ -1,26 +1,32 @@
 import { memo, useCallback, useState } from 'react';
 
-const Example4 = () => {
-    const [isDark, setIsDark] = useState(false);
-    const [_, setCount] = useState(0);
+// useCallback with a custom hook example
+const useCounter = () => {
+    const [count, setCount] = useState(0);
 
-    const onChange = useCallback((count: number) => {
-        setCount(count);
+    const increment = useCallback(() => {
+        setCount(c => c + 1);
     }, []);
 
+    const decrement = useCallback(() => {
+        setCount(c => c - 1);
+    }, []);
+
+    return { count, increment, decrement };
+};
+
+const Example4 = () => {
+    const { count, increment, decrement } = useCounter();
+
     return (
-        <div className={`p-4 flex flex-col gap-2 ${isDark ? 'bg-slate-500 text-white' : ''}`}>
-            <div>
-                Toggle theme: <input type="checkbox" checked={isDark} onChange={e => setIsDark(e.target.checked)} />
-            </div>
-            <SlowComponent onChange={onChange} />
+        <div className="p-4 flex flex-col gap-2">
+            <div>Count: {count}</div>
+            <SlowComponent onIncrement={increment} onDecrement={decrement} />
         </div>
     );
 };
 
-const SlowComponent = memo(({ onChange }: { onChange: (c: number) => void }) => {
-    const [count, setCount] = useState(0);
-
+const SlowComponent = memo(({ onIncrement, onDecrement }: { onIncrement: () => void; onDecrement: () => void }) => {
     console.log('[ARTIFICIALLY SLOW] Rendering <SlowComponent />');
     const startTime = performance.now();
     while (performance.now() - startTime < 500) {
@@ -29,13 +35,11 @@ const SlowComponent = memo(({ onChange }: { onChange: (c: number) => void }) => 
 
     return (
         <div>
-            <div>Counter: {count}</div>
             <div className="flex gap-2">
                 <button
                     className="rounded-md p-1 bg-slate-300"
                     onClick={() => {
-                        setCount(count - 1);
-                        onChange(count - 1);
+                        onDecrement();
                     }}
                 >
                     -
@@ -43,14 +47,12 @@ const SlowComponent = memo(({ onChange }: { onChange: (c: number) => void }) => 
                 <button
                     className="rounded-md p-1 bg-slate-300"
                     onClick={() => {
-                        setCount(count + 1);
-                        onChange(count + 1);
+                        onIncrement();
                     }}
                 >
                     +
                 </button>
             </div>
-            Last updated at {new Date().toLocaleTimeString()}
         </div>
     );
 });
